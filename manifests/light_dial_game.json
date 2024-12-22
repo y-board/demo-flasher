@@ -1,0 +1,16 @@
+{
+    "name": "Light Dial Game",
+    "version": "1.0.0",
+    "new_install_prompt_erase": false,
+    "builds": [
+        {
+            "chipFamily": "ESP32-S3",
+            "parts": [
+                {
+                    "path": "/bin/light_dial_game.bin",
+                    "offset": 0
+                }
+            ]
+        }
+    ]
+}
