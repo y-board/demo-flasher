@@ -7,7 +7,7 @@
             "chipFamily": "ESP32-S3",
             "parts": [
                 {
-                    "path": "/bin/hardware_test.bin",
+                    "path": "../bin/hardware_test.bin",
                     "offset": 0
                 }
             ]
