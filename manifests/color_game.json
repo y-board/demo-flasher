@@ -1,5 +1,5 @@
 {
-    "name": "WiFi Sniffer",
+    "name": "Clock",
     "version": "1.0.0",
     "new_install_prompt_erase": false,
     "builds": [
@@ -7,7 +7,7 @@
             "chipFamily": "ESP32-S3",
             "parts": [
                 {
-                    "path": "../bin/wifi_sniffer.bin",
+                    "path": "../bin/color_game.bin",
                     "offset": 0
                 }
             ]
