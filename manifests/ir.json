@@ -1,5 +1,5 @@
 {
-    "name": "Hardware Test",
+    "name": "IR",
     "version": "1.0.0",
     "new_install_prompt_erase": false,
     "builds": [
@@ -7,7 +7,7 @@
             "chipFamily": "ESP32-S3",
             "parts": [
                 {
-                    "path": "../bin/hardware_test.bin",
+                    "path": "../bin/ir.bin",
                     "offset": 0
                 }
             ]
