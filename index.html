@@ -1,146 +1,318 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>Y-Board Installer</title>
-    <meta name="description" content="Easily allow users to install Y-Board firmware on the web." />
-    <meta name="viewport" content="width=device-width" />
+    <title>Y-Board Demo Installer</title>
+    <meta name="description" content="Install Y-Board firmware demos directly from your browser over USB." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
     <style>
-        body {
-            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Ubuntu, sans-serif;
-            padding: 0;
-            margin: 0;
-            line-height: 1.4;
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
-        .content {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 12px;
-        }
-
-        h2 {
-            margin-top: 2em;
-        }
-
-        h3 {
-            margin-top: 1.5em;
-        }
-
-        a {
-            color: #03a9f4;
-        }
-
-        .invisible {
-            visibility: hidden;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        esp-web-install-button[install-unsupported] {
-            visibility: inherit;
-        }
-
-        .content pre {
-            max-width: 100%;
-            overflow-y: scroll;
-        }
-
-        .footer {
-            margin-top: 24px;
-            border-top: 1px solid #ccc;
-            padding-top: 24px;
-            text-align: center;
-        }
-
-        .footer .initiative {
-            font-style: italic;
-            margin-top: 16px;
-        }
-
-        table {
-            border-spacing: 0;
-        }
-
-        td {
-            padding: 8px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .radios li {
-            list-style: none;
-            line-height: 2em;
+        :root {
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --surface-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+            --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #333;
-                color: #fff;
+            :root {
+                --accent: #38bdf8;
+                --accent-hover: #7dd3fc;
+                --bg: #0f172a;
+                --surface: #1e293b;
+                --surface-alt: #334155;
+                --border: #334155;
+                --text: #f1f5f9;
+                --text-muted: #94a3b8;
+                --shadow: 0 1px 3px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.2);
+                --shadow-card: 0 1px 3px rgba(0,0,0,.2), 0 2px 8px rgba(0,0,0,.15);
             }
+        }
 
-            a {
-                color: #58a6ff;
-            }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 32px 16px 48px;
+        }
+
+        /* ── Header ── */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: var(--accent);
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+
+        .logo svg {
+            width: 30px;
+            height: 30px;
+            fill: #fff;
+        }
+
+        header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 0 0 8px;
+            letter-spacing: -0.02em;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* ── Section ── */
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        section h2 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin: 0 0 16px;
+        }
+
+        /* ── Demo grid ── */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .demo-card {
+            position: relative;
+        }
+
+        .demo-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .demo-card label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            background: var(--surface-alt);
+            transition: border-color .15s, background .15s, box-shadow .15s;
+            text-align: center;
+            user-select: none;
+        }
+
+        .demo-card label:hover {
+            border-color: var(--accent);
+            background: var(--surface);
+            box-shadow: var(--shadow-card);
+        }
+
+        .demo-card input[type="radio"]:checked + label {
+            border-color: var(--accent);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+        }
+
+        .demo-icon {
+            font-size: 1.75rem;
+            line-height: 1;
+        }
+
+        .demo-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ── Install area ── */
+        .install-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .install-hint {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        esp-web-install-button {
+            --esp-tools-button-color: var(--accent);
+            --esp-tools-button-text-color: #fff;
+        }
+
+        esp-web-install-button.invisible {
+            visibility: hidden;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            margin-top: 32px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .dot {
+            margin: 0 6px;
+            opacity: .4;
         }
     </style>
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
 
 <body>
-    <div class="content">
-        <h1>Y-Board Demo Installer</h1>
-        <p>Select your demo:</p>
-        <ul class="radios">
-            <!-- <li>
-                <label><input type="radio" name="type" value="audio_recorder" /> Audio Recorder</label>
-            </li> -->
-            <li>
-                <label><input type="radio" name="type" value="clock" /> Clock</label>
-            </li>
-            <li>
-                <label><input type="radio" name="type" value="color_game" /> Color Game</label>
-            </li>
-            <li>
-                <label><input type="radio" name="type" value="hardware_test" /> Hardware Test</label>
-            </li>
-            <li>
-                <label><input type="radio" name="type" value="ir" /> IR</label>
-            </li>
-            <li>
-                <label><input type="radio" name="type" value="light_dial_game" /> Light Dial Game</label>
-            </li>
-            <li>
-                <label><input type="radio" name="type" value="light_show" /> Light Show</label>
-            </li>
-            <!-- <li>
-                <label><input type="radio" name="type" value="serial_send" /> Serial Send</label>
-            </li> -->
-            <li>
-                <label><input type="radio" name="type" value="wifi_sniffer" /> WiFi Sniffer</label>
-            </li>
-        </ul>
-        <p class="button-row" align="center">
-            <esp-web-install-button class="invisible"></esp-web-install-button>
-        </p>
+    <div class="page">
 
-        <div class="footer">
-            <a href="https://y-board.github.io">Y-Board</a> &mdash;
-            Installer powered by <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a>.
-        </div>
-        <script>
-            document.querySelectorAll('input[name="type"]').forEach(radio =>
-                radio.addEventListener("change", () => {
-                    const button = document.querySelector('esp-web-install-button');
-                    button.manifest = `./manifests/${radio.value}.json`;
-                    button.classList.remove('invisible');
-                }
-                ));
-        </script>
+        <header>
+            <div class="logo">
+                <!-- Chip/circuit icon -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 2v2H7a2 2 0 0 0-2 2v2H3v2h2v2H3v2h2v2a2 2 0 0 0 2 2h2v2h2v-2h2v2h2v-2h2a2 2 0 0 0 2-2v-2h2v-2h-2v-2h2v-2h-2V6a2 2 0 0 0-2-2h-2V2h-2v2h-2V2H9zm-2 4h10v10H7V6zm2 2v6h6V8H9z"/>
+                </svg>
+            </div>
+            <h1>Y-Board Demo Installer</h1>
+            <p>Flash firmware demos to your Y-Board directly from your browser.</p>
+        </header>
+
+        <section>
+            <h2>Choose a Demo</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-clock" value="clock" />
+                    <label for="demo-clock">
+                        <span class="demo-icon">🕐</span>
+                        <span class="demo-name">Clock</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-color_game" value="color_game" />
+                    <label for="demo-color_game">
+                        <span class="demo-icon">🎨</span>
+                        <span class="demo-name">Color Game</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-hardware_test" value="hardware_test" />
+                    <label for="demo-hardware_test">
+                        <span class="demo-icon">🔧</span>
+                        <span class="demo-name">Hardware Test</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-ir" value="ir" />
+                    <label for="demo-ir">
+                        <span class="demo-icon">📡</span>
+                        <span class="demo-name">IR</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-light_dial_game" value="light_dial_game" />
+                    <label for="demo-light_dial_game">
+                        <span class="demo-icon">🎛️</span>
+                        <span class="demo-name">Light Dial Game</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-light_show" value="light_show" />
+                    <label for="demo-light_show">
+                        <span class="demo-icon">✨</span>
+                        <span class="demo-name">Light Show</span>
+                    </label>
+                </div>
+                <div class="demo-card">
+                    <input type="radio" name="demo" id="demo-wifi_sniffer" value="wifi_sniffer" />
+                    <label for="demo-wifi_sniffer">
+                        <span class="demo-icon">📶</span>
+                        <span class="demo-name">WiFi Sniffer</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Flash to Device</h2>
+            <div class="install-area">
+                <p class="install-hint" id="install-hint">Select a demo above, then connect your Y-Board via USB and click Install.</p>
+                <esp-web-install-button class="invisible" id="install-btn"></esp-web-install-button>
+            </div>
+        </section>
+
+        <footer>
+            <a href="https://y-board.github.io">Y-Board</a>
+            <span class="dot">&bull;</span>
+            Powered by <a href="https://esphome.github.io/esp-web-tools/">ESP Web Tools</a>
+        </footer>
+
+    </div>
+
+    <script>
+        const btn = document.getElementById('install-btn');
+        const hint = document.getElementById('install-hint');
+
+        document.querySelectorAll('input[name="demo"]').forEach(radio =>
+            radio.addEventListener('change', () => {
+                btn.manifest = `./manifests/${radio.value}.json`;
+                btn.classList.remove('invisible');
+                hint.textContent = 'Connect your Y-Board via USB, then click Install.';
+            })
+        );
+    </script>
 </body>
 
 </html>
