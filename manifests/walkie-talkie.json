@@ -1,5 +1,5 @@
 {
-    "name": "Light Dial Game",
+    "name": "Walkie Talkie",
     "version": "23cccc3",
     "new_install_prompt_erase": false,
     "builds": [
@@ -7,7 +7,7 @@
             "chipFamily": "ESP32-S3",
             "parts": [
                 {
-                    "path": "../bin/light_dial_game.bin",
+                    "path": "../bin/walkie-talkie.bin",
                     "offset": 0
                 }
             ]

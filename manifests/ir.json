@@ -1,6 +1,6 @@
 {
-    "name": "IR",
-    "version": "1.0.0",
+    "name": "IR Remote",
+    "version": "23cccc3",
     "new_install_prompt_erase": false,
     "builds": [
         {

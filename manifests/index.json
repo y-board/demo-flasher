@@ -1,0 +1,87 @@
+{
+    "version": "23cccc3",
+    "demos": [
+        {
+            "id": "audio_recorder",
+            "display_name": "Audio Recorder",
+            "icon": "🎙️",
+            "description": "Record audio from the mic to the SD card and play it back, with a live waveform.",
+            "manifest": "manifests/audio_recorder.json"
+        },
+        {
+            "id": "clock",
+            "display_name": "Clock",
+            "icon": "🕐",
+            "description": "NTP-synced clock with alarms. Configure WiFi over USB using Improv.",
+            "manifest": "manifests/clock.json",
+            "assets": "assets/clock.zip"
+        },
+        {
+            "id": "color_game",
+            "display_name": "Color Game",
+            "icon": "🎨",
+            "description": "Match a secret RGB color using the buttons and knob.",
+            "manifest": "manifests/color_game.json"
+        },
+        {
+            "id": "go_cougs",
+            "display_name": "Go Cougs",
+            "icon": "🐾",
+            "description": "Plays the BYU fight song with synced lyrics on the display.",
+            "manifest": "manifests/go_cougs.json",
+            "assets": "assets/go_cougs.zip"
+        },
+        {
+            "id": "hardware_test",
+            "display_name": "Hardware Test",
+            "icon": "🔧",
+            "description": "Visual smoke test for buttons, switches, knob, LEDs, and speaker.",
+            "manifest": "manifests/hardware_test.json",
+            "assets": "assets/hardware_test.zip"
+        },
+        {
+            "id": "ir",
+            "display_name": "IR Remote",
+            "icon": "📡",
+            "description": "Learn IR codes from a remote and replay them on demand.",
+            "manifest": "manifests/ir.json"
+        },
+        {
+            "id": "light_dial_game",
+            "display_name": "Light Dial Game",
+            "icon": "🎛️",
+            "description": "Spin the knob to find a hidden color. Get faster each round.",
+            "manifest": "manifests/light_dial_game.json",
+            "assets": "assets/light_dial_game.zip"
+        },
+        {
+            "id": "light_show",
+            "display_name": "Light Show",
+            "icon": "✨",
+            "description": "Cycles through animated LED patterns: fire, pacifica, rainbow, and more.",
+            "manifest": "manifests/light_show.json"
+        },
+        {
+            "id": "walkie-talkie",
+            "display_name": "Walkie Talkie",
+            "icon": "📻",
+            "description": "Push-to-talk voice chat between two boards over ESP-NOW. No WiFi needed.",
+            "manifest": "manifests/walkie-talkie.json"
+        },
+        {
+            "id": "wifi_sniffer",
+            "display_name": "WiFi Sniffer",
+            "icon": "📶",
+            "description": "Scans WiFi channels in promiscuous mode. LEDs and OLED show packet activity.",
+            "manifest": "manifests/wifi_sniffer.json"
+        },
+        {
+            "id": "wireless_sound",
+            "display_name": "Wireless Sound",
+            "icon": "🔊",
+            "description": "One board sends a sound name over ESP-NOW; another plays the matching SD card file.",
+            "manifest": "manifests/wireless_sound.json",
+            "assets": "assets/wireless_sound.zip"
+        }
+    ]
+}
